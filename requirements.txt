@@ -1,0 +1,12 @@
+streamlit
+supabase
+streamlit-autorefresh
+streamlit-authenticator
+bcrypt
+streamlit-webrtc
+opencv-python-headless
+pyzbar
+pandas
+numpy
+av
+pyyaml
