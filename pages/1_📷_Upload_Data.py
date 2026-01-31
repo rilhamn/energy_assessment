@@ -4,12 +4,39 @@ from supabase import create_client
 
 st.set_page_config(layout="wide")
 
+# ===============================
+# 🔐 AUTH
+# ===============================
+
+config = {
+    "credentials": {
+        "usernames": {
+            user: dict(st.secrets["credentials"]["usernames"][user])
+            for user in st.secrets["credentials"]["usernames"]
+        }
+    },
+    "cookie": dict(st.secrets["cookie"]),
+}
+
+authenticator = stauth.Authenticate(
+    config["credentials"],
+    config["cookie"]["name"],
+    config["cookie"]["key"],
+    config["cookie"]["expiry_days"],
+)
+
+# Only admin can manage employee
+if st.session_state.get("username") != "admin":
+    st.error("🚫 Admin only")
+    st.stop()
+
 # ---------------------------------------
 # Supabase
 # ---------------------------------------
-SUPABASE_URL = st.secrets["SUPABASE_URL"]
-SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase = create_client(
+    st.secrets["supabase"]["url"],
+    st.secrets["supabase"]["key"]
+)
 
 # ---------------------------------------
 # Sidebar – unit selector
