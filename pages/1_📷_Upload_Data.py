@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from supabase import create_client
+import streamlit_authenticator as stauth
 
 st.set_page_config(layout="wide")
 
